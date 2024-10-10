@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   View,
@@ -7,6 +7,9 @@ import {
   Text,
   StatusBar,
   Image,
+  TouchableOpacity,
+  TextInput,
+  Button,
 } from "react-native";
 
 const DATA = [
@@ -77,13 +80,31 @@ const Item = ({ title, image }: ItemProps) => (
 );
 
 const App = () => {
+  const [text, onChangeText] = React.useState("");
+  const [displayText, setDisplayText] = useState<string>("");
+
+  const handlePress = () => {
+    setDisplayText(text);
+    onChangeText("");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.text}>O que vai treinar hoje?</Text>
+      <TextInput
+        onChangeText={onChangeText}
+        value={text}
+        style={styles.input}
+        placeholder="Digite seu nome"
+      />
+      <Button onPress={handlePress} title="Confirmar" color="#841584" />
+      <Text style={styles.text}>Bem vindo, {displayText}</Text>
+      <Text style={styles.text}>O que vai treinar hoje? </Text>
       <FlatList
         data={DATA}
         renderItem={({ item }) => (
-          <Item title={item.title} image={item.image} />
+          <TouchableOpacity>
+            <Item title={item.title} image={item.image} />
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id}
       />
@@ -128,6 +149,12 @@ const styles = StyleSheet.create({
     width: 80,
     height: 160,
     resizeMode: "contain",
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
 
