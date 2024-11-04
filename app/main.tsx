@@ -8,68 +8,214 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-  TextInput,
-  Button,
 } from "react-native";
-import { Link, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
-const DATA = [
-  {
-    id: "1",
-    title: "Chest",
-    image: require("../assets/images/1_05.png"),
+export const DATA = {
+  categorias: [
+    {
+      id: "chest",
+      title: "Chest",
+      image: require("../assets/images/1_05.png"),
+    },
+    {
+      id: "biceps",
+      title: "Biceps",
+      image: require("../assets/images/1_04.png"),
+    },
+    {
+      id: "calves",
+      title: "Calves",
+      image: require("../assets/images/1_15.png"),
+    },
+    {
+      id: "shoulders",
+      title: "Shoulders",
+      image: require("../assets/images/1_03.png"),
+    },
+    {
+      id: "back",
+      title: "Back",
+      image: require("../assets/images/1_07.png"),
+    },
+    {
+      id: "triceps",
+      title: "Triceps",
+      image: require("../assets/images/1_08.png"),
+    },
+    {
+      id: "leg",
+      title: "Legs",
+      image: require("../assets/images/1_12.png"),
+    },
+  ],
+  exercicios: {
+    chest: [
+      {
+        id: "1",
+        title: "Bench Press",
+        image: require("../assets/images/gifExercicios/chest/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Pec Deck",
+        image: require("../assets/images/gifExercicios/chest/2.gif"),
+      },
+      {
+        id: "3",
+        title: "Dumbbell Fly",
+        image: require("../assets/images/gifExercicios/chest/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Cable Crossover",
+        image: require("../assets/images/gifExercicios/chest/4.gif"),
+      },
+    ],
+    back: [
+      {
+        id: "1",
+        title: "Barbell Row",
+        image: require("../assets/images/gifExercicios/back/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Cable Rear Pulldown",
+        image: require("../assets/images/gifExercicios/back/2.gif"),
+      },
+      {
+        id: "3",
+        title: "Pull-Up",
+        image: require("../assets/images/gifExercicios/back/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Barbell Bent Over Row",
+        image: require("../assets/images/gifExercicios/back/4.gif"),
+      },
+    ],
+    biceps: [
+      {
+        id: "1",
+        title: "Dumbbell Curl",
+        image: require("../assets/images/gifExercicios/biceps/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Barbell Curl",
+        image: require("../assets/images/gifExercicios/biceps/2.gif"),
+      },
+      {
+        id: "3",
+        title: "EZ Bar Preacher Curl",
+        image: require("../assets/images/gifExercicios/biceps/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Hammer Curl",
+        image: require("../assets/images/gifExercicios/biceps/4.gif"),
+      },
+    ],
+    calves: [
+      {
+        id: "1",
+        title: "Standing Calf Raise",
+        image: require("../assets/images/gifExercicios/calves/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Leg Press Calf Raise",
+        image: require("../assets/images/gifExercicios/calves/2.gif"),
+      },
+      {
+        id: "3",
+        title: "Lever Seated Calf Raise",
+        image: require("../assets/images/gifExercicios/calves/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Standing Barbell Calf Raise",
+        image: require("../assets/images/gifExercicios/calves/4.gif"),
+      },
+    ],
+    shoulders: [
+      {
+        id: "1",
+        title: "Dumbbell Lateral Raise",
+        image: require("../assets/images/gifExercicios/shoulders/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Dumbbell Shoulder Press",
+        image: require("../assets/images/gifExercicios/shoulders/2.gif"),
+      },
+      {
+        id: "3",
+        title: "Smith Machine Shoulder Press",
+        image: require("../assets/images/gifExercicios/shoulders/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Cable Lateral Raise",
+        image: require("../assets/images/gifExercicios/shoulders/4.gif"),
+      },
+    ],
+    triceps: [
+      {
+        id: "1",
+        title: "Push-down",
+        image: require("../assets/images/gifExercicios/triceps/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Skull Crusher",
+        image: require("../assets/images/gifExercicios/triceps/2.gif"),
+      },
+      {
+        id: "3",
+        title: "One Arm Triceps Extension",
+        image: require("../assets/images/gifExercicios/triceps/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Overhead Triceps Extension",
+        image: require("../assets/images/gifExercicios/triceps/4.gif"),
+      },
+    ],
+    leg: [
+      {
+        id: "1",
+        title: "Squat",
+        image: require("../assets/images/gifExercicios/leg/1.gif"),
+      },
+      {
+        id: "2",
+        title: "Leg Press",
+        image: require("../assets/images/gifExercicios/leg/2.gif"),
+      },
+      {
+        id: "3",
+        title: "Deadlift",
+        image: require("../assets/images/gifExercicios/leg/3.gif"),
+      },
+      {
+        id: "4",
+        title: "Leg Curl",
+        image: require("../assets/images/gifExercicios/leg/4.gif"),
+      },
+      {
+        id: "5",
+        title: "Leg Extension",
+        image: require("../assets/images/gifExercicios/leg/5.gif"),
+      },
+      {
+        id: "6",
+        title: "Bulgarian Squat",
+        image: require("../assets/images/gifExercicios/leg/6.gif"),
+      },
+    ],
   },
-  {
-    id: "2",
-    title: "Biceps",
-    image: require("../assets/images/1_04.png"),
-  },
-  {
-    id: "3",
-    title: "Calves",
-    image: require("../assets/images/1_15.png"),
-  },
-  {
-    id: "4",
-    title: "Shoulders",
-    image: require("../assets/images/1_03.png"),
-  },
-  {
-    id: "back",
-    title: "Back",
-    image: require("../assets/images/1_07.png"),
-  },
-  {
-    id: "6",
-    title: "Triceps",
-    image: require("../assets/images/1_08.png"),
-  },
-  {
-    id: "7",
-    title: "Abdomen",
-    image: require("../assets/images/1_10.png"),
-  },
-  {
-    id: "8",
-    title: "Forearm",
-    image: require("../assets/images/1_11.png"),
-  },
-  {
-    id: "9",
-    title: "Quadriceps",
-    image: require("../assets/images/1_12.png"),
-  },
-  {
-    id: "10",
-    title: "Hamstrings",
-    image: require("../assets/images/1_13.png"),
-  },
-  {
-    id: "11",
-    title: "Glute",
-    image: require("../assets/images/1_14.png"),
-  },
-];
+};
 
 type ItemProps = { title: string; image: any };
 
@@ -87,7 +233,7 @@ const App = () => {
 
   const handlePress = (id: string) => {
     router.push({
-      pathname: `./Treinos/${id}`,
+      pathname: `./treinos/${id}`,
     });
   };
 
@@ -96,7 +242,7 @@ const App = () => {
       <Text style={styles.text}>Bem vindo(a), {name} </Text>
       <Text style={styles.text}>O que vai treinar hoje? </Text>
       <FlatList
-        data={DATA}
+        data={DATA.categorias}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handlePress(item.id)}>

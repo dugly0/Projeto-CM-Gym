@@ -23,7 +23,7 @@ const Item = ({ title, image }: ItemProps) => (
   </View>
 );
 
-const Back = () => {
+const Biceps = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [note, setNote] = useState("");
   const [notes, setNotes] = useState<string[]>([]);
@@ -42,7 +42,7 @@ const Back = () => {
         <Text style={styles.buttonText}>Adicionar Anotação</Text>
       </TouchableOpacity>
       <FlatList
-        data={DATA.exercicios.back}
+        data={DATA.exercicios.biceps}
         renderItem={({ item }) => (
           <View>
             <Item title={item.title} image={item.image} />
@@ -181,4 +181,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Back;
+export default Biceps;
