@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   SafeAreaView,
   View,
@@ -11,7 +11,22 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 
-export const DATA = {
+type Exercise = {
+  id: string;
+  title: string;
+  image: any;
+};
+
+type Category = {
+  id: string;
+  title: string;
+  image: any;
+};
+
+export const DATA: {
+  categorias: Category[];
+  exercicios: Record<string, Exercise[]>;
+} = {
   categorias: [
     {
       id: "chest",
@@ -33,21 +48,13 @@ export const DATA = {
       title: "Shoulders",
       image: require("../assets/images/1_03.png"),
     },
-    {
-      id: "back",
-      title: "Back",
-      image: require("../assets/images/1_07.png"),
-    },
+    { id: "back", title: "Back", image: require("../assets/images/1_07.png") },
     {
       id: "triceps",
       title: "Triceps",
       image: require("../assets/images/1_08.png"),
     },
-    {
-      id: "leg",
-      title: "Legs",
-      image: require("../assets/images/1_12.png"),
-    },
+    { id: "leg", title: "Legs", image: require("../assets/images/1_12.png") },
   ],
   exercicios: {
     chest: [
@@ -217,7 +224,10 @@ export const DATA = {
   },
 };
 
-type ItemProps = { title: string; image: any };
+type ItemProps = {
+  title: string;
+  image: any;
+};
 
 const Item = ({ title, image }: ItemProps) => (
   <View style={styles.item}>
@@ -227,14 +237,12 @@ const Item = ({ title, image }: ItemProps) => (
 );
 
 const App = () => {
-  const { displayText } = useLocalSearchParams();
+  const { displayText } = useLocalSearchParams<{ displayText?: string }>();
   const name = displayText || "Visitante";
   const router = useRouter();
 
   const handlePress = (id: string) => {
-    router.push({
-      pathname: `./treinos/${id}`,
-    });
+    router.push({ pathname: `./${id}` });
   };
 
   return (
@@ -268,10 +276,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 5,
@@ -291,12 +296,6 @@ const styles = StyleSheet.create({
     width: 80,
     height: 160,
     resizeMode: "contain",
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
 });
 
